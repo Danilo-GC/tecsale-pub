@@ -1,0 +1,16 @@
+micronaut:
+  application:
+    name: tecSalePub
+  server:
+    cors:
+      enabled: true
+    port: 8081
+  endpoints:
+    health:
+      enabled: true
+##Nats
+nats:
+    addresses:
+      - "nats://localhost:4222"
+    username: guest
+    password: guest
