@@ -10,5 +10,11 @@ import javax.inject.Singleton
 interface ProductClient {
 
     @Subject("store.product")
-    fun send(product: Product)
+    fun sendPost(product: Product)
+
+    @Subject("store.product.update")
+    fun sendUpdate(product: Product)
+
+    @Subject("store.product.delete")
+    fun sendDelete(id: String)
 }

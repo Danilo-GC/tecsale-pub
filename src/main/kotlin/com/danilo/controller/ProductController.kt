@@ -3,13 +3,8 @@ package com.danilo.controller
 import com.danilo.model.Product
 import com.danilo.service.ProductService
 import io.micronaut.http.HttpResponse
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Post
-import io.micronaut.http.annotation.Put
-import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.PathVariable
-import io.micronaut.http.annotation.Delete
-import java.util.UUID
+import io.micronaut.http.annotation.*
+import java.util.*
 
 
 @Controller(value = "/product")
@@ -22,15 +17,13 @@ class ProductController(private val productService: ProductService) {
 
     @Put(value = "/{id}")
     fun updateProduct(@PathVariable id: String, @Body product: Product): HttpResponse<Product> {
-        val convertedId = UUID.fromString(id)
-        val updatedProduct = Product(convertedId, product.name, product.price, product.type, product.description)
-        return HttpResponse.ok<Product?>().body(productService.updateProduct(convertedId, updatedProduct))
+        val updatedProduct = Product(UUID.fromString(id), product.name, product.price, product.type, product.description)
+        return HttpResponse.ok<Product?>().body(productService.updateProduct (updatedProduct))
     }
 
     @Delete(value = "/{id}")
     fun deleteProduct(id: String): HttpResponse<Unit> {
-        val convertedId = UUID.fromString(id)
-        productService.deleteProduct(convertedId)
+        productService.deleteProduct(id)
         return HttpResponse.noContent()
     }
 
